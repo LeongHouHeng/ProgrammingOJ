@@ -6,17 +6,18 @@ using namespace std;
 
 int main(){
 
-	int i, j, max, cycle, pp;
+    unsigned long int i, j, max, cycle, pp;
 	while(cin >> i >> j){
-		if(j < i){
-			int tmp = i;
+        cout << i << " " << j ;
+		if(i>j){
+			unsigned long int tmp = i;
 			i = j;
 			j = tmp;
 		}		
 
 		max = 0;
 		
-		for(int p = i; p <= j; p++){
+		for(unsigned long int p = i; p <= j; p++){
 			cycle = 1;
 			pp = p;
 			while(pp != 1){
@@ -30,7 +31,7 @@ int main(){
 		
 			max = (max > cycle) ? max : cycle;
 		}
-		cout << i << " " << j << " " << max << endl;
+		cout << " " << max << endl;
 
 	}
 	return 0;
