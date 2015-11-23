@@ -5,27 +5,27 @@ using namespace std;
 int main(){
 
 	string str_input;
-	string open = "``";
-	string close = "\'\'";
-	
 	char check = '"';
-	
+	int flag = 0; //0 is open, 1 is close
 	while(getline(cin, str_input)){
-		string str_tmp;
-		int count = 0;
-		for(int i = 0; i <= str_input.length(); i++){
-			if(str_input[i] == check){
-				str_tmp[count] = str_input[i];
-				if(count % 2 == 0){
-					str_input.replace(i, 1, open);
-				}else{
-					str_input.replace(i, 1, close);
-				}
-				count ++;
-			}
+        
+		for(int i = 0; i < str_input.length(); i++){
+            if(str_input[i] == check){
+				
+				if(flag == 0){
+				    cout << "``";
+                    flag = 1;
+                }else{
+				    cout << "''";
+                    flag = 0;
+                }
+				
+			}else{
+                cout << str_input[i];   
+            }
 		}		
-		cout << str_input;
-
+        cout << endl;
+        
 	}
 	
 	return 0;
