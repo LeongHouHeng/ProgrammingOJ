@@ -9,3 +9,4 @@
 - UVa
  - 100-The 3n+1 problem (C++)
  - 272-TEXQuotes (C++)
+ - 941-Permutations (C++)
