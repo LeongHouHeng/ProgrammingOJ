@@ -1,36 +1,51 @@
-#include <iostream>
-#include <algorithm>
-#include <vector>
+#include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include <iostream>
+#define MAX 22
+
 using namespace std;
 
+char line[MAX];
+long long per[MAX];
+
+int cmp(const void *a, const void *b){
+	return *(char*)a - *(char*)b;
+}
+
+void swap(char *x, char *y){
+	char w;
+	w = *x;
+	*x = *y;
+	*y = w;
+}
+
+void permute(char *line, long long target, int len){
+	qsort(line, len, sizeof(char), cmp);
+	long long d, i;
+	if(target == 0)
+		return;
+
+	for(d = 0, i = 0; i <= len && per[len-1]*i <= target; i++){
+		d = per[len-1]*i;
+	}
+	swap(line, line+i-1);
+	permute(line+1, target-d, len-1);
+}
+
 int main(){
-   
-    long long fac[20];
-    fac[0] = 1;
-    fac[1] = 1;
-    for(int i = 2; i < 20; i++){
-        fac[i] = fac[i-1] * i;
-    }
-    int number;
-    cin >> number;
-    while(number--){
-        char S[21]; //20 + 1
-        long long N;
-        cin >> S;
-        cin >> N;
-        sort(S, S+strlen(S));
-        vector<char> s(S, S+strlen(S) ), t;
-        for(int i = strlen(S) - 1; i; i--){
-            int j = N / fac[i];
-            t.push_back(s[j]);
-            s.erase(s.begin()+j);
-            N %= fac[i];
-        }
-        t.push_back(s[0]);
-        t.push_back('\0');
-        cout << &t[0] << endl;
-    }
-    
-    return 0;
+	int c, cases, lvl;
+	long long n, i;
+    for(per[0]= 1, i = 1; i < MAX; i++){
+		per[i] = per[i-1]*i;
+	}
+	cin >> cases;
+	for (c = 0; c < cases; c++){
+		cin >> line >> n;
+		lvl = strlen(line);
+		permute(line, n, lvl);
+		cout << line << endl;
+	}
+	return 0;
+
 }
