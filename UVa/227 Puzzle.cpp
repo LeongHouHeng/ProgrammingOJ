@@ -7,9 +7,14 @@ using namespace std;
 
 char puzzle[5][5];
 int spaceX, spaceY;
+bool IsFail = false;
 
 void above(int x, int y){
-    
+    if(x == 0){
+        IsFail = true;
+        return;        
+    }
+        
     char tmp = puzzle[x][y];
     puzzle[x][y] = puzzle[x-1][y];
     puzzle[x-1][y] = tmp;
@@ -19,6 +24,11 @@ void above(int x, int y){
 }
 
 void behind(int x, int y){
+    if(x == 4){
+        IsFail = true;
+        return;        
+    }
+    
     char tmp = puzzle[x][y];
     puzzle[x][y] = puzzle[x+1][y];
     puzzle[x+1][y] = tmp;
@@ -27,6 +37,11 @@ void behind(int x, int y){
 }
 
 void left(int x, int y){
+    if(y == 0){
+        IsFail = true;
+        return;        
+    }
+    
     char tmp = puzzle[x][y];
     puzzle[x][y] = puzzle[x][y-1];
     puzzle[x][y-1] = tmp;
@@ -35,6 +50,11 @@ void left(int x, int y){
 }
 
 void right(int x, int y){
+    if(y == 4){
+        IsFail = true;
+        return;        
+    }
+    
     char tmp = puzzle[x][y];
     puzzle[x][y] = puzzle[x][y+1];
     puzzle[x][y+1] = tmp;
@@ -49,7 +69,7 @@ int main(){
     int count = 0;
     int round = 0;
     while(input[0] != 'Z'){
-        //cin.ignore();
+        input = "";
         getline(cin, input);
         
         for(int i = 0; i < 5; i++){
@@ -67,7 +87,6 @@ int main(){
                 switch(c){
                     case 'A':
                         above(spaceX, spaceY);
-                        //cout << "-----" << spaceX << " " << spaceY << endl;
                         break;
                     case 'B':
                         behind(spaceX, spaceY);
@@ -80,16 +99,26 @@ int main(){
                         break;
                 }
             }
-            
-            cout << "Puzzle #" << ++round  << ":"<< endl;   
+            ++round;
+            cout << "Puzzle #" << round  << ":"<< endl;   
+            if(IsFail){
+                printf("This puzzle has no final configuration.");
+            }else{    
                 for(int i = 0; i < 5; i++){
                     for(int j = 0; j < 5; j++){
                         printf("%c ", puzzle[i][j]);
                     }
                     printf("\n");
                 }
+            }
             cout << endl;
-            //count = 0;
+            count = 0;
+            IsFail = false;
+            memset(puzzle, ' ', sizeof(puzzle));
+            input.clear();
+            cin.clear();
+            cin.sync();
+            cin.ignore();
         }           
     }
     
