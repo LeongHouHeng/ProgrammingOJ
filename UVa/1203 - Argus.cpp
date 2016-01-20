@@ -9,15 +9,20 @@ struct argu{
     int period;
     int timer;
     
-    friend bool operator< (argu a, argu b){
+};
+
+class cmp{
+    public:
+    bool operator() (argu a, argu b){
         if(a.timer == b.timer)
             return a.q_num < b.q_num;
         else
             return a.timer < b.timer;
     }
 };
+
 int main(){
-    priority_queue<argu> bq;
+    priority_queue<argu, vector<argu>, cmp> bq;
     string regist;
     argu argus;        
 
@@ -37,8 +42,8 @@ int main(){
         bq.pop();
         cout << tmp.q_num << endl;
         argus.q_num = tmp.q_num;
-        argus.period = tmp.period;
-        argus.timer = tmp.timer+tmp.period; 
+        tmp.timer = tmp.timer+tmp.period;
+        argus = tmp; 
         bq.push(argus);
         
     }

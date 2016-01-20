@@ -64,11 +64,12 @@ void right(int x, int y){
 
 int main(){
     
-    memset(puzzle, ' ', sizeof(puzzle));
     string input;
     int count = 0;
     int round = 0;
     while(input[0] != 'Z'){
+        memset(puzzle, ' ', sizeof(puzzle));
+        
         input = "";
         getline(cin, input);
         
