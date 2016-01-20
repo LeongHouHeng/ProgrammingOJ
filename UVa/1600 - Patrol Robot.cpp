@@ -22,7 +22,6 @@ struct Node{
 void bfs(int k){
     Node ns;
     queue<Node> nodes;
-    //ans = 0;        
     ns.x = 0;
     ns.y = 0;
     ns.k = k;
