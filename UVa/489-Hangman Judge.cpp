@@ -46,11 +46,11 @@ int main(){
         }
         
         if(win)
-            cout << "You win." << endl;
+            printf("You win.\n");
         else if(lose)
-            cout << "You lose." << endl;
+            printf("You lose.\n");
         else
-            cout << "You chickened out." << endl;
+            printf("You chickened out.\n");
         
     }
     
