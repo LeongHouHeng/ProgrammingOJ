@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <stack>
+#include <queue>
 using namespace std;
 string ans;
 struct Node{
@@ -41,15 +42,45 @@ void mirror(Node* root){
     cout << root->data;
 }
 
+void dfs(Node* root){
+    if(root == NULL){
+        return;
+    }
+    cout << root->data;
+    dfs(root->lchild);
+    dfs(root->rchild);
+}
+
+void bfs(Node* root){
+    queue<Node*> q;
+    q.push(root);
+    while(!q.empty()){
+        Node* current_node = q.front();
+        q.pop();
+        if(current_node->lchild){
+            q.push(current_node->lchild);
+        }
+        if(current_node->rchild){
+            q.push(current_node->rchild);
+        }
+        cout << current_node->data;
+    }
+}
+
 int main(){
     string pre_str, in_str;
     ans = "";
     cin >> pre_str;
     cin >> in_str;
- 
-    postorder(Tree(pre_str, in_str, in_str.length()));
+    
+    //cout << "dfs: " << endl;
+    //dfs(Tree(pre_str, in_str, in_str.length()));
+    //postorder(Tree(pre_str, in_str, in_str.length()));
+    //cout << endl;
+    //mirror(Tree(pre_str, in_str, in_str.length()));
     cout << endl;
-    mirror(Tree(pre_str, in_str, in_str.length()));
+    cout << "bfs: " << endl;
+    bfs(Tree(pre_str, in_str, in_str.length()));
     cout << endl;
     return 0;
 }
