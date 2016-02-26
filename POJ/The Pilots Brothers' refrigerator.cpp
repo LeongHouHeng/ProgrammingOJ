@@ -9,6 +9,16 @@ char mapTmp[4][4];
 int step = 0;
 int minStep = 999999;
 
+bool check(){
+    for(int r = 1; r <= 4; r++){
+        for(int c = 1; c <= 4; c++){
+            if(mapTmp[r][c] == '+')
+                return false;
+        }
+    }
+    return true;
+}
+
 void dfs(int i, int j){
     if(i < 1 || i > 4 || j < 1 || j > 4){
         return;
