@@ -1,46 +1,54 @@
 /*
 ID: LeongHouHeng
-PROG: test
+PROG: beads
 LANG: C++
  */
-#include<fstream>
+#include <iostream>
+#include <fstream>
+#include <string>
+ 
 using namespace std;
  
-int main()
-{
-    int num,max=0,n,i,j,k;
-    char *p,symbol1,symbol2;
-    ifstream fin("beads.in");
-    ofstream fout("beads.out");
- 
-    fin>>n;
-    p=new char[n+1];
-    fin>>p;
- 
-    for(i=n;i<2*n;++i){
-        if(p[i%n]!=p[(i+1)%n]){                               
-            symbol1=p[i%n]!='w'?p[i%n]:(p[(i+1)%n]=='r'?'b':'r');   
-            symbol2=symbol1=='r'?'b':'r';
-            num=0;
- 
-            for(j=i;j>i-n;--j){
-                if(p[j%n]==symbol1||p[j%n]=='w') ++num;        
-                else break;
-            }
-            for(k=i+1;k<j+n+1;++k){
-                if(p[k%n]==symbol2||p[k%n]=='w') ++num;
-                else break;
-            }
- 
-            max=max>num?max:num;                     
-        }
+int main() {
+ ofstream fout ("beads.out");
+ ifstream fin ("beads.in");
+ int N;
+ fin >> N;
+ string beads;
+ fin >> beads;
+  
+ if(beads.length() != N)
+  N = beads.length();
+  
+ int cur = 0, max = 0;
+ char color;
+ bool switched;
+  
+ for(int i = 0; i < N; ++i){
+  cur = 0;
+  switched = false;
+  color = 'w';
+  for(int j = 0; j < N; ++j){
+   const char cur_c = beads[(i + j) % N];
+   if(cur_c != 'w'){
+    if(color == 'w'){
+     color = cur_c;
     }
- 
-    if(max==0) max=n;                               
-    fout<<max<<endl;
-    fin.close();
-    fout.close();
-    delete [] p;
- 
-    return 0;
+    else if(color != cur_c){
+     if(switched)
+      break;
+     else{
+      color = cur_c;
+      switched = true;
+     }
+    }
+   }
+   ++cur;
+  }
+  if(cur > max)
+   max = cur;
+ }
+  
+ fout << max << endl;
+ return 0;
 }

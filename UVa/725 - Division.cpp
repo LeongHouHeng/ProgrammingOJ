@@ -11,20 +11,20 @@ int main(){
             break;
             
         bool check = true;
-        for(int i = 0; i <= 99999; i++){
+        for(int i = 1; i <= 99999; i++){
             bool b = true;
             int a = n*i;
             string strA = ""; strA += a;
             string strI = ""; strI += i;
-            for(int j = 0; j < strA.length(); j++){
-                for(int r = 0; r < strI.length(); r++){
+            for(int j = 1; j < strA.length(); j++){
+                for(int r = 1; r < strI.length(); r++){
                     if(strA[j] != strI[r]){
                         b = false;
                         check = false;
                     }
                 }
             }
-            if(b){
+            if(b && strA.length()+strI.length() == 10){
                 cout << a << "/" << i << "=" << n << endl;
             }
             
